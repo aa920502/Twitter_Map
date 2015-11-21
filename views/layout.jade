@@ -1,0 +1,58 @@
+doctype
+html
+  head
+    title #{title} 
+    meta(http-equiv='ContentType', content='text/html', charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/css/bootstrap/css/bootstrap.css')
+    link(rel='stylesheet', href='/css/bootstrap/css/bootstrap-responsive.min.css')
+    script(type='text/javascript', src='/js/jquery/jquery-1.9.1.min.js')
+    script(type='text/javascript', src='/css/bootstrap/js/bootstrap.min.js')
+    script(type='text/javascript', src='/js/app/tweetstreamer.js')
+    script(type='text/javascript', src='/socket.io/socket.io.js')
+    script(type="text/javascript", src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ2by2UxFAQEYrHHbWcxOH-zZTsI0PEs4&libraries=visualization&sensor=true_or_false')
+   
+  body#page-body   
+    div.container
+      div.navbar.navbar-inverse.navbar-fixed-top
+        div.navbar-inner
+          div.container
+
+            .navbar-text.pull-right
+              .btn-group
+                  a.btn.btn-default.dropdown-toggle(data-toggle='dropdown', href='#') 
+                    span(label='') Keyword
+                    span.caret
+                  ul.dropdown-menu
+                    li
+                      a(href='#') usa
+                      a(href='#') yankees
+                      a(href='#') to
+              script.
+                $(".dropdown-menu li a").click(function(){
+                  var socket1 = io.connect('http://localhost:3000');
+                  var selText = $(this).text();
+                  if(socket1 != null){
+                    socket1.emit('text', selText);
+                    alert('Now searching for: '+selText);
+                  } else{
+                    alert('socket was null');
+                  }
+                });
+
+            button(type="button", class="btn btn-navbar", data-toggle="collapse", data-target=".nav-collapse")
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a(class="brand" , href="#")  Tweet Heatmap
+            div.nav-collapse.collapse    
+               p.navbar-text.pull-right 
+              
+
+    block content1
+
+
+
+
+
